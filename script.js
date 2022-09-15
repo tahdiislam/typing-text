@@ -75,7 +75,8 @@ const gameOver = () => {
   // the current time is the finish time
   // so total time taken is current time - start time
   const finishTime = new Date().getTime();
-  timeTaken = (finishTime - startTime) / 1000;
+  timeTakenfloat = (finishTime - startTime) / 1000;
+  timeTaken = parseInt(timeTakenfloat);
   // type speed calculation 
   // make the single string to sentence every word = 5 letter 
   const word = questionTextLength / 5;
