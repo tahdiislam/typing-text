@@ -6,11 +6,12 @@ const resultModal = document.getElementById("result");
 const modalBackground = document.getElementById("modal-background");
 
 // variables
+let wrongKeys = [];
+// console.log(wrongKeys)
 let userText = "";
 let errorCount = 0;
 let startTime;
 let questionText = "";
-
 // Load and display question
 fetch("./texts.json")
   .then((res) => res.json())
@@ -45,6 +46,10 @@ const typeController = (e) => {
   if (newLetterCorrect) {
     display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
   } else {
+    // wrong type counter 
+    wrongKeys.push(newLetter);
+    errorCount = wrongKeys.length;
+    // console.log(wrongKeys.length)
     display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`;
   }
 
