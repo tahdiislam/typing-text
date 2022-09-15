@@ -77,7 +77,9 @@ const gameOver = () => {
   const finishTime = new Date().getTime();
   timeTaken = (finishTime - startTime) / 1000;
   // type speed calculation 
-  const typeSpeedFloat = (questionTextLength / timeTaken) * 60;
+  // make the single string to sentence every word = 5 letter 
+  const word = questionTextLength / 5;
+  const typeSpeedFloat = (word / timeTaken) * 60;
   const typeSpeed = parseInt(typeSpeedFloat)
   // show result modal
   resultModal.innerHTML = "";
@@ -91,7 +93,7 @@ const gameOver = () => {
   resultModal.innerHTML += `
     <h1>Finished!</h1>
     <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
-    <p>Your typing speed is <span class="bold green">${typeSpeed}</span> LPM</p>
+    <p>Your typing speed is <span class="bold green">${typeSpeed}</span> WPM</p>
     <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
     <button onclick="closeModal()">Close</button>
   `;
