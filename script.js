@@ -8,16 +8,19 @@ const modalBackground = document.getElementById("modal-background");
 // variables
 let wrongKeys = [];
 // console.log(wrongKeys)
+let timeTaken;
 let userText = "";
 let errorCount = 0;
 let startTime;
 let questionText = "";
+let questionTextLength;
 // Load and display question
 fetch("./texts.json")
   .then((res) => res.json())
   .then((data) => {
     questionText = data[Math.floor(Math.random() * data.length)];
     question.innerHTML = questionText;
+    questionTextLength = questionText.length;
   });
 
 // checks the user typed character and displays accordingly
@@ -72,8 +75,10 @@ const gameOver = () => {
   // the current time is the finish time
   // so total time taken is current time - start time
   const finishTime = new Date().getTime();
-  const timeTaken = (finishTime - startTime) / 1000;
-
+  timeTaken = (finishTime - startTime) / 1000;
+  // type speed calculation 
+  const typeSpeedFloat = (questionTextLength / timeTaken) * 60;
+  const typeSpeed = parseInt(typeSpeedFloat)
   // show result modal
   resultModal.innerHTML = "";
   resultModal.classList.toggle("hidden");
@@ -86,6 +91,7 @@ const gameOver = () => {
   resultModal.innerHTML += `
     <h1>Finished!</h1>
     <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
+    <p>Your typing speed is <span class="bold green">${typeSpeed}</span> LPM</p>
     <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
     <button onclick="closeModal()">Close</button>
   `;
